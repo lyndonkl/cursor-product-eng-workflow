@@ -76,6 +76,13 @@ export function TimelineChart({
     if (!svgRef.current) return
 
     const svg = d3.select(svgRef.current)
+      .attr('class', cn(
+        'timeline-chart',
+        'bg-background',
+        'rounded-lg',
+        'border border-border',
+        className
+      ))
 
     // Clear previous content
     svg.selectAll('*').remove()
@@ -96,8 +103,8 @@ export function TimelineChart({
       .attr('y', dimensions.margin.top)
       .attr('width', d => scales.xScale(new Date(d.endYear, 0)) - scales.xScale(new Date(d.startYear, 0)))
       .attr('height', dimensions.height - dimensions.margin.top - dimensions.margin.bottom)
-      .attr('fill', d => d.color || 'var(--muted)')
-      .attr('opacity', d => d.id === activePeriod ? 0.1 : 0.05)
+      .attr('fill', d => `hsl(var(--period-${d.id}))`)
+      .attr('opacity', d => d.id === activePeriod ? 0.2 : 0.1)
       .style('cursor', 'pointer')
       .on('click', (event, d) => onPeriodClick?.(d.id))
 
@@ -122,20 +129,24 @@ export function TimelineChart({
           .attr('x', (_, i) => i * 80 - (industries.length * 80) / 2)
           .attr('y', 0)
           .attr('text-anchor', 'middle')
-          .attr('fill', 'var(--muted-foreground)')
+          .attr('fill', 'currentColor')
           .attr('font-size', '10px')
           .text(industry => industry)
 
         // Growth rate indicator
         group.append('text')
-          .attr('class', 'growth-rate')
+          .attr('class', (d: { economicIndicators: { growthRate: number } }) => 
+            `growth-rate ${d.economicIndicators.growthRate > 1 ? 'positive' : 'negative'}`
+          )
           .attr('x', 0)
           .attr('y', -15)
           .attr('text-anchor', 'middle')
-          .attr('fill', d.economicIndicators.growthRate > 1 ? 'var(--success)' : 'var(--destructive)')
+          .attr('fill', 'currentColor')
           .attr('font-size', '12px')
           .attr('font-weight', '500')
-          .text(`${(d.economicIndicators.growthRate * 100).toFixed(1)}% growth`)
+          .text((d: { economicIndicators: { growthRate: number } }) => 
+            `${(d.economicIndicators.growthRate * 100).toFixed(1)}% growth`
+          )
       })
 
     // Add period boundaries
@@ -150,7 +161,7 @@ export function TimelineChart({
       .attr('x2', d => scales.xScale(new Date(d.startYear, 0)))
       .attr('y1', dimensions.margin.top)
       .attr('y2', dimensions.height - dimensions.margin.bottom)
-      .attr('stroke', 'var(--border)')
+      .attr('stroke', 'hsl(var(--border))')
       .attr('stroke-width', 1)
       .attr('stroke-dasharray', '4,4')
 
@@ -165,7 +176,7 @@ export function TimelineChart({
       .attr('x', d => scales.xScale(new Date(d.startYear + (d.endYear - d.startYear) / 2, 0)))
       .attr('y', dimensions.margin.top - 10)
       .attr('text-anchor', 'middle')
-      .attr('fill', 'var(--muted-foreground)')
+      .attr('fill', 'hsl(var(--muted-foreground))')
       .attr('font-size', '12px')
       .text(d => d.name)
 
@@ -192,7 +203,7 @@ export function TimelineChart({
       .attr('x2', d => scales.xScale(new Date(d.year, 0)))
       .attr('y1', dimensions.margin.top)
       .attr('y2', dimensions.height - dimensions.margin.bottom)
-      .attr('stroke', d => d.periodColor || 'var(--muted)')
+      .attr('stroke', d => `hsl(var(--period-${d.periodId}))`)
       .attr('stroke-width', 1)
       .attr('stroke-dasharray', '2,2')
       .attr('opacity', 0.3)
@@ -206,8 +217,8 @@ export function TimelineChart({
       .attr('cx', d => scales.xScale(new Date(d.year, 0)))
       .attr('cy', dimensions.margin.top + 20)
       .attr('r', 6)
-      .attr('fill', d => d.periodColor || 'var(--muted)')
-      .attr('stroke', 'var(--background)')
+      .attr('fill', d => `hsl(var(--period-${d.periodId}))`)
+      .attr('stroke', 'hsl(var(--background))')
       .attr('stroke-width', 2)
 
     // Add event labels
@@ -219,7 +230,7 @@ export function TimelineChart({
       .attr('x', d => scales.xScale(new Date(d.year, 0)))
       .attr('y', dimensions.margin.top + 40)
       .attr('text-anchor', 'middle')
-      .attr('fill', 'var(--muted-foreground)')
+      .attr('fill', 'hsl(var(--muted-foreground))')
       .attr('font-size', '10px')
       .text(d => d.title)
       .attr('transform', function(d) {
@@ -254,14 +265,14 @@ export function TimelineChart({
       .datum(data.historical)
       .attr('class', 'confidence-area historical')
       .attr('d', confidenceArea)
-      .attr('fill', 'var(--primary)')
+      .attr('fill', 'hsl(var(--primary))')
       .attr('fill-opacity', 0.1)
 
     svg.append('path')
       .datum(data.projections)
       .attr('class', 'confidence-area projected')
       .attr('d', confidenceArea)
-      .attr('fill', 'var(--warning)')
+      .attr('fill', 'hsl(var(--warning))')
       .attr('fill-opacity', 0.1)
 
     // Add line paths
@@ -270,7 +281,7 @@ export function TimelineChart({
       .attr('class', 'gdp-line historical')
       .attr('d', linePath)
       .attr('fill', 'none')
-      .attr('stroke', 'var(--primary)')
+      .attr('stroke', 'hsl(var(--primary))')
       .attr('stroke-width', 2)
 
     svg.append('path')
@@ -278,7 +289,7 @@ export function TimelineChart({
       .attr('class', 'gdp-line projected')
       .attr('d', linePath)
       .attr('fill', 'none')
-      .attr('stroke', 'var(--warning)')
+      .attr('stroke', 'hsl(var(--warning))')
       .attr('stroke-width', 2)
       .attr('stroke-dasharray', '4,4')
 
@@ -291,7 +302,7 @@ export function TimelineChart({
       .attr('cx', d => scales.xScale(new Date(d.year, 0)))
       .attr('cy', d => scales.yScale(d.gdp))
       .attr('r', 4)
-      .attr('fill', 'var(--primary)')
+      .attr('fill', 'hsl(var(--primary))')
       .attr('stroke', 'var(--background)')
       .attr('stroke-width', 2)
 
@@ -303,7 +314,7 @@ export function TimelineChart({
       .attr('cx', d => scales.xScale(new Date(d.year, 0)))
       .attr('cy', d => scales.yScale(d.gdp))
       .attr('r', 4)
-      .attr('fill', 'var(--warning)')
+      .attr('fill', 'hsl(var(--warning))')
       .attr('stroke', 'var(--background)')
       .attr('stroke-width', 2)
 
@@ -343,6 +354,8 @@ export function TimelineChart({
         width={dimensions.width}
         height={dimensions.height}
         className="timeline-chart"
+        role="img"
+        aria-label="GDP Timeline Chart"
       >
         <defs>
           <clipPath id="chart-area">

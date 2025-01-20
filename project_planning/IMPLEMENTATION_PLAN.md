@@ -45,7 +45,7 @@
 
 2. **Core Visualization (3 days)**
    - ✅ TICKET-301: Timeline Chart Base Implementation
-   - TICKET-302: Historical Sections Implementation
+   - ✅ TICKET-302: Historical Sections Implementation
    - TICKET-303: Tooltip System
 
 ### Week 5: Scrollytelling & Content
