@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import { historicalGDPData } from '../../../data/gdp/historical-data'
-import { projectedGDPData } from '../../../data/gdp/projection-data'
-import type { GDPDataSet } from '../../../types/gdp'
+import { historicalGDPData } from '@/data/gdp/historical-data'
+import { projectedGDPData } from '@/data/gdp/projection-data'
+import type { GDPDataSet } from '@/types/gdp'
 
 export async function GET() {
   try {

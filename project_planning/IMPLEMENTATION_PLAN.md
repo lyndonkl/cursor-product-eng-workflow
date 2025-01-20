@@ -46,13 +46,13 @@
 2. **Core Visualization (3 days)**
    - ✅ TICKET-301: Timeline Chart Base Implementation
    - ✅ TICKET-302: Historical Sections Implementation
-   - TICKET-303: Tooltip System
+   - ✅ TICKET-303: Tooltip System
 
 ### Week 5: Scrollytelling & Content
 1. **Scrollytelling Implementation (3 days)**
-   - TICKET-304: Scroll Container Setup
-   - TICKET-305: Content Sections
-   - TICKET-306: Navigation System
+   - ✅ TICKET-304: Scroll Container Setup
+   - ✅ TICKET-305: Content Sections
+   - ✅ TICKET-306: Navigation System
 
 2. **Build & Documentation (2 days)**
    - TICKET-206: Development Build Setup

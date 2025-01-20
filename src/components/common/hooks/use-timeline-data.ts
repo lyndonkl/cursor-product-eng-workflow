@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useMemo } from 'react'
 import type { 
   UnifiedTimelineData,
@@ -7,6 +9,7 @@ import type {
   TimelineEvent,
   TimelineMilestone
 } from '../../../types/timeline'
+import type { GDPDataSet } from '../../../types/gdp'
 import { 
   createTimelineDataByYear,
   createTimelineDataByPeriod,
@@ -27,6 +30,7 @@ interface UseTimelineDataReturn {
   currentPeriod: TimelinePeriod | null
   events: TimelineEvent[]
   milestones: TimelineMilestone[]
+  gdpData: GDPDataSet | null
   isLoading: boolean
   error: Error | null
 }
@@ -38,6 +42,7 @@ export function useTimelineData({
   mockData
 }: UseTimelineDataOptions = {}): UseTimelineDataReturn {
   const [data, setData] = useState<UnifiedTimelineData | null>(null)
+  const [gdpData, setGDPData] = useState<GDPDataSet | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
@@ -50,14 +55,27 @@ export function useTimelineData({
 
     async function fetchData() {
       try {
-        const response = await fetch('/api/timeline')
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+        const [timelineResponse, gdpResponse] = await Promise.all([
+          fetch('/api/timeline'),
+          fetch('/api/gdp')
+        ])
+
+        if (!timelineResponse.ok) {
+          throw new Error(`HTTP error! status: ${timelineResponse.status}`)
         }
-        const jsonData = await response.json()
-        setData(jsonData)
+        if (!gdpResponse.ok) {
+          throw new Error(`HTTP error! status: ${gdpResponse.status}`)
+        }
+
+        const [timelineData, gdpData] = await Promise.all([
+          timelineResponse.json(),
+          gdpResponse.json()
+        ])
+
+        setData(timelineData)
+        setGDPData(gdpData)
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Failed to fetch timeline data'))
+        setError(err instanceof Error ? err : new Error('Failed to fetch data'))
       } finally {
         setIsLoading(false)
       }
@@ -125,6 +143,7 @@ export function useTimelineData({
     currentPeriod,
     events,
     milestones,
+    gdpData,
     isLoading,
     error
   }

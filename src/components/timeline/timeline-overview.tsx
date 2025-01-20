@@ -1,9 +1,14 @@
-import React from 'react'
+'use client'
+
+import React, { useCallback } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useTimelineData } from '../common/hooks/use-timeline-data'
 import { Badge } from '../ui/badge'
 import { Card } from '../ui/card'
 import { Progress } from '../ui/progress'
+import { TimelineChart } from '../charts/TimelineChart'
 import type { UnifiedTimelineData } from '../../types/timeline'
+import type { GDPDataSet } from '../../types/gdp'
 
 export interface TimelineOverviewProps {
   startYear?: number
@@ -18,14 +23,23 @@ export function TimelineOverview({
   periodId,
   mockData
 }: TimelineOverviewProps) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const currentPeriodId = searchParams.get('period')
+
   const {
     data,
     currentPeriod,
     events,
     milestones,
+    gdpData,
     isLoading,
     error
   } = useTimelineData({ startYear, endYear, periodId, mockData })
+
+  const handlePeriodClick = useCallback((periodId: string) => {
+    router.push(`/?period=${periodId}`)
+  }, [router])
 
   // Debug logs
   React.useEffect(() => {
@@ -84,65 +98,71 @@ export function TimelineOverview({
   })
 
   return (
-    <div className="space-y-8">
-      <h2 className="text-2xl font-semibold text-primary">
-        Historical GDP Data
-      </h2>
-      
-      {filteredPeriods.map(period => (
-        <div
-          key={period.id}
-          className="card bg-card text-card-foreground p-6 rounded-lg shadow-md"
-        >
-          <h3 className="text-xl font-medium mb-4">{period.name}</h3>
-          <p className="text-muted-foreground mb-2">
-            {period.startYear} - {period.endYear}
-          </p>
-          <p className="text-sm">{period.description}</p>
-        </div>
-      ))}
+    <div className="space-y-8 w-full max-w-content mx-auto px-4 md:px-8">
+      {/* Timeline Chart */}
+      {gdpData && (
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-neutral-900">GDP Growth Timeline</h2>
+          <Card className="p-6 md:p-10 bg-neutral-50 border-neutral-200">
+            <div className="w-full aspect-[2/1] min-h-[400px] max-h-[768px]">
+              <TimelineChart
+                data={gdpData}
+                periods={filteredPeriods}
+                width={800}
+                height={400}
+                activePeriod={currentPeriodId || undefined}
+                onPeriodClick={handlePeriodClick}
+                className="w-full h-full"
+              />
+            </div>
+          </Card>
+        </section>
+      )}
 
       {/* Period Overview */}
       {currentPeriod && (
-        <Card className="p-6">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">
-                {currentPeriod.name}
-              </h3>
-              <Badge variant="first">
-                {currentPeriod.startYear} - {currentPeriod.endYear}
-              </Badge>
-            </div>
-            <p className="text-muted-foreground">
-              {currentPeriod.description}
-            </p>
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <p className="text-sm font-medium">Average GDP</p>
-                <p className="text-2xl font-bold text-primary">
-                  ${currentPeriod.economicIndicators.averageGDP.toLocaleString()}
-                </p>
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold text-neutral-900">Period Details</h2>
+          <Card className="p-6 md:p-10 bg-neutral-50 border-neutral-200">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-neutral-900">
+                  {currentPeriod.name}
+                </h3>
+                <Badge variant="first" className="text-sm font-medium text-neutral-600">
+                  {currentPeriod.startYear} - {currentPeriod.endYear}
+                </Badge>
               </div>
-              <div>
-                <p className="text-sm font-medium">Growth Rate</p>
-                <p className="text-2xl font-bold text-primary">
-                  {(currentPeriod.economicIndicators.growthRate * 100).toFixed(1)}%
-                </p>
-              </div>
-              <div>
-                <p className="text-sm font-medium">Main Industries</p>
-                <div className="flex flex-wrap gap-2">
-                  {currentPeriod.economicIndicators.mainIndustries.map(industry => (
-                    <Badge key={industry} variant="second" size="sm">
-                      {industry}
-                    </Badge>
-                  ))}
+              <p className="text-base text-neutral-600">
+                {currentPeriod.description}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <p className="text-sm font-medium text-neutral-700">Average GDP</p>
+                  <p className="text-2xl font-bold text-primary">
+                    ${currentPeriod.economicIndicators.averageGDP.toLocaleString()}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-neutral-700">Growth Rate</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {(currentPeriod.economicIndicators.growthRate * 100).toFixed(1)}%
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-neutral-700">Main Industries</p>
+                  <div className="flex flex-wrap gap-2">
+                    {currentPeriod.economicIndicators.mainIndustries.map(industry => (
+                      <Badge key={industry} variant="second" className="text-xs font-medium text-neutral-600">
+                        {industry}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </section>
       )}
 
       {/* Events Timeline */}
@@ -151,7 +171,7 @@ export function TimelineOverview({
         <div className="relative">
           <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
           <div className="space-y-8">
-            {events.map((event, index) => (
+            {events.map((event) => (
               <div key={event.id} className="relative pl-10">
                 <div className="absolute left-3 top-2 w-3 h-3 rounded-full bg-primary" />
                 <Card className="p-4">
