@@ -1,0 +1,372 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --primary-50: 217 90% 97%;   /* #f0f9ff */
+    --primary-100: 214 94% 93%;  /* #e0f2fe */
+    --primary-200: 201 94% 86%;  /* #bae6fd */
+    --primary-300: 199 89% 74%;  /* #7dd3fc */
+    --primary-400: 198 93% 60%;  /* #38bdf8 */
+    --primary-500: 199 89% 48%;  /* #0ea5e9 */
+    --primary-600: 200 98% 39%;  /* #0284c7 */
+    --primary-700: 201 96% 32%;  /* #0369a1 */
+    --primary-800: 201 90% 27%;  /* #075985 */
+    --primary-900: 202 80% 24%;  /* #0c4a6e */
+
+    /* Neutral Colors */
+    --neutral-50: 0 0% 98%;     /* #fafafa */
+    --neutral-100: 0 0% 96%;    /* #f5f5f5 */
+    --neutral-200: 0 0% 90%;    /* #e5e5e5 */
+    --neutral-300: 0 0% 83%;    /* #d4d4d4 */
+    --neutral-400: 0 0% 64%;    /* #a3a3a3 */
+    --neutral-500: 0 0% 45%;    /* #737373 */
+    --neutral-600: 0 0% 32%;    /* #525252 */
+    --neutral-700: 0 0% 25%;    /* #404040 */
+    --neutral-800: 0 0% 15%;    /* #262626 */
+    --neutral-900: 0 0% 9%;     /* #171717 */
+
+    /* Historical Period Colors */
+    --period-early: 262 89% 66%;    /* #8b5cf6 - Soft purple */
+    --period-first: 187 96% 42%;    /* #06b6d4 - Cyan */
+    --period-second: 158 64% 40%;   /* #10b981 - Emerald */
+    --period-modern: 38 96% 50%;    /* #f59e0b - Amber */
+    --period-future: 327 73% 60%;   /* #ec4899 - Pink */
+
+    /* GDP Line Colors */
+    --gdp-line: 199 89% 48%;      /* #0ea5e9 - Main GDP line */
+    --gdp-projection: 327 73% 60%; /* #ec4899 - Future projection */
+    --gdp-highlight: 38 96% 50%;   /* #f59e0b - Highlighted segments */
+
+    /* Interactive States */
+    --hover-bg: 199 89% 48% / 0.1;  /* Primary color 10% opacity */
+    --active-bg: 199 89% 48% / 0.2; /* Primary color 20% opacity */
+    --focus-ring: 199 89% 48%;      /* Primary color */
+    --disabled: 0 0% 83%;           /* neutral-300 */
+
+    /* Typography Scale */
+    --h1: clamp(2rem, 5vw, 3rem);        /* 32px → 48px */
+    --h2: clamp(1.5rem, 4vw, 2.25rem);   /* 24px → 36px */
+    --h3: clamp(1.25rem, 3vw, 1.75rem);  /* 20px → 28px */
+    --h4: clamp(1.125rem, 2vw, 1.5rem);  /* 18px → 24px */
+    --h5: clamp(1rem, 1.5vw, 1.25rem);   /* 16px → 20px */
+    --h6: 1rem;                          /* 16px */
+
+    /* Body Text Scale */
+    --text-xs: 0.75rem;    /* 12px - Small labels */
+    --text-sm: 0.875rem;   /* 14px - Secondary text */
+    --text-base: 1rem;     /* 16px - Body text */
+    --text-lg: 1.125rem;   /* 18px - Large body text */
+    --text-xl: 1.25rem;    /* 20px */
+    --text-2xl: 1.5rem;    /* 24px */
+
+    /* Data Label Scale */
+    --label-sm: 0.75rem;    /* 12px - Small data labels */
+    --label-base: 0.875rem; /* 14px - Standard data labels */
+    --label-lg: 1rem;       /* 16px - Large data labels */
+
+    /* Font Weights */
+    --font-thin: 100;
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /* Line Heights */
+    --leading-none: 1;        /* Headlines */
+    --leading-tight: 1.25;    /* Data labels */
+    --leading-normal: 1.5;    /* Body text */
+    --leading-relaxed: 1.75;  /* Long-form content */
+
+    /* Spacing Scale */
+    --space-0: 0;
+    --space-1: 0.25rem;  /*  4px */
+    --space-2: 0.5rem;   /*  8px */
+    --space-3: 0.75rem;  /* 12px */
+    --space-4: 1rem;     /* 16px */
+    --space-5: 1.25rem;  /* 20px */
+    --space-6: 1.5rem;   /* 24px */
+    --space-8: 2rem;     /* 32px */
+    --space-10: 2.5rem;  /* 40px */
+    --space-12: 3rem;    /* 48px */
+    --space-16: 4rem;    /* 64px */
+    --space-20: 5rem;    /* 80px */
+    --space-24: 6rem;    /* 96px */
+
+    /* Layout */
+    --content-padding-x: clamp(1rem, 5vw, 2rem);
+    --content-max-width: 80rem;
+    --section-content-max-width: 45rem;
+    --section-min-height: 100vh;
+    --section-side-padding: max(var(--space-4), 5vw);
+    --section-gap: var(--space-16);
+    --transition-padding: var(--space-24);
+
+    /* Grid System */
+    --grid-columns: 12;
+    --grid-gap: var(--space-6);
+    --grid-container: min(var(--content-max-width), 100% - 2 * var(--content-padding-x));
+
+    /* Component Spacing */
+    --card-padding: var(--space-6);
+    --card-gap: var(--space-4);
+    --chart-padding: var(--space-8);
+    --label-spacing: var(--space-2);
+    --tooltip-padding: var(--space-4);
+
+    /* Section Spacing */
+    --text-section-spacing: var(--space-16);
+    --text-section-padding: var(--space-8);
+    --viz-section-spacing: var(--space-20);
+    --viz-section-padding: var(--space-10);
+
+    /* Responsive Areas */
+    --sidebar-width: 20rem;
+    --main-content: 1fr;
+    --visualization-height: min(80vh, 48rem);
+
+    /* Breakpoints */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    /* Animation */
+    --transition-duration: 150ms;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-properties: opacity, transform;
+
+    /* Chart Interactions */
+    --point-radius-default: 4px;
+    --point-radius-hover: 6px;
+    --point-radius-active: 8px;
+    --point-stroke-width: 1px;
+    --point-stroke-width-hover: 2px;
+    --point-stroke-width-active: 3px;
+
+    /* Tooltips */
+    --tooltip-max-width: 300px;
+    --tooltip-radius: var(--space-2);
+    --tooltip-offset: 8px;
+    --tooltip-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+    /* Progress Indicators */
+    --progress-bar-height: 4px;
+    --progress-marker-size: 8px;
+    --progress-marker-active-size: 12px;
+  }
+}
+
+@layer base {
+  html {
+    font-family: 'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply bg-neutral-50 text-neutral-900;
+  }
+
+  /* Focus Styles */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--focus-ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    max-width: var(--content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--content-padding-x);
+  }
+
+  .section-content {
+    max-width: var(--section-content-max-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card {
+    background-color: hsl(var(--neutral-50));
+    padding: var(--card-padding);
+    border: 1px solid hsl(var(--neutral-200));
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .card:hover {
+    background-color: hsl(var(--hover-bg));
+  }
+
+  .card:active {
+    background-color: hsl(var(--active-bg));
+  }
+
+  .grid-layout {
+    display: grid;
+    gap: var(--grid-gap);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .grid-layout {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-layout {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Typography Scale */
+  .heading-1 {
+    font-size: var(--h1);
+    line-height: var(--leading-none);
+    font-weight: var(--font-bold);
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-6);
+  }
+
+  .heading-2 {
+    font-size: var(--h2);
+    line-height: var(--leading-tight);
+    font-weight: var(--font-bold);
+    letter-spacing: -0.025em;
+    margin: var(--space-8) 0 var(--space-6);
+  }
+
+  .body-text {
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
+    color: hsl(var(--neutral-600));
+    margin-bottom: var(--space-8);
+    max-width: 42rem;
+  }
+
+  /* Data Typography */
+  .data-value {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    color: hsl(var(--primary-600));
+  }
+
+  .data-label {
+    font-size: var(--label-lg);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-normal);
+  }
+
+  .data-range {
+    font-size: var(--label-base);
+    color: hsl(var(--neutral-500));
+    line-height: var(--leading-normal);
+  }
+
+  /* Historical Period Classes */
+  .period-early { color: hsl(var(--period-early)); }
+  .period-first { color: hsl(var(--period-first)); }
+  .period-second { color: hsl(var(--period-second)); }
+  .period-modern { color: hsl(var(--period-modern)); }
+  .period-future { color: hsl(var(--period-future)); }
+
+  /* Chart Elements */
+  .chart-point {
+    r: var(--point-radius-default);
+    fill: hsl(var(--primary-500));
+    stroke: hsl(var(--neutral-50));
+    stroke-width: var(--point-stroke-width);
+    transition: all var(--transition-duration) var(--transition-timing);
+  }
+
+  .chart-point:hover {
+    r: var(--point-radius-hover);
+    stroke-width: var(--point-stroke-width-hover);
+    cursor: pointer;
+  }
+
+  .chart-point.active {
+    r: var(--point-radius-active);
+    stroke-width: var(--point-stroke-width-active);
+  }
+
+  /* Tooltips */
+  .tooltip {
+    max-width: var(--tooltip-max-width);
+    padding: var(--tooltip-padding);
+    border-radius: var(--tooltip-radius);
+    background-color: hsl(var(--neutral-50));
+    box-shadow: var(--tooltip-shadow);
+    border: 1px solid hsl(var(--neutral-200));
+  }
+
+  .tooltip-title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: hsl(var(--neutral-900));
+    margin-bottom: var(--space-2);
+  }
+
+  .tooltip-content {
+    font-size: var(--text-sm);
+    color: hsl(var(--neutral-600));
+  }
+
+  /* Progress Indicators */
+  .progress-bar {
+    height: var(--progress-bar-height);
+    background: hsl(var(--neutral-200));
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: hsl(var(--primary-500));
+    transition: width var(--transition-duration) var(--transition-timing);
+  }
+
+  .progress-marker {
+    width: var(--progress-marker-size);
+    height: var(--progress-marker-size);
+    border-radius: 50%;
+    background: hsl(var(--neutral-400));
+    transition: all var(--transition-duration) var(--transition-timing);
+  }
+
+  .progress-marker.active {
+    width: var(--progress-marker-active-size);
+    height: var(--progress-marker-active-size);
+    background: hsl(var(--primary-500));
+  }
+
+  /* Period Styles */
+  .period {
+    transition: background-color var(--transition-duration) var(--transition-timing);
+  }
+
+  .period:hover {
+    background-color: hsl(var(--hover-bg));
+    cursor: pointer;
+  }
+
+  .period.active {
+    background-color: hsl(var(--active-bg));
+  }
+
+  .period-early { background-color: hsl(var(--period-early) / 0.1); }
+  .period-first { background-color: hsl(var(--period-first) / 0.1); }
+  .period-second { background-color: hsl(var(--period-second) / 0.1); }
+  .period-modern { background-color: hsl(var(--period-modern) / 0.1); }
+  .period-future { background-color: hsl(var(--period-future) / 0.1); }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg 
+    width="1000" 
+    height="700" 
+    viewBox="0 0 1000 700" 
+    xmlns="http://www.w3.org/2000/svg" 
+    style="background:#f7f7f7;"
+>
+  <!-- Background Rectangle -->
+  <rect x="0" y="0" width="1000" height="700" fill="#f7f7f7"/>
+
+  <!-- Header Section -->
+  <rect x="50" y="30" width="900" height="60" fill="#e0e0ff" rx="5"/>
+  <text x="100" y="70" fill="#333" font-size="20" font-family="sans-serif">
+    Header / Hero Title
+  </text>
+
+  <!-- Scrolly Container (Text Panels) -->
+  <rect x="50" y="120" width="400" height="460" fill="#ffffff" stroke="#ccc" stroke-dasharray="4 4"/>
+  <text x="60" y="160" fill="#333" font-size="16" font-family="sans-serif">
+    Scrollable Text
+  </text>
+  <text x="60" y="190" fill="#777" font-size="12" font-family="sans-serif">
+    - Section 1: Pre-Industrial
+  </text>
+  <text x="60" y="210" fill="#777" font-size="12" font-family="sans-serif">
+    - Section 2: First Industrial Revolution
+  </text>
+  <text x="60" y="230" fill="#777" font-size="12" font-family="sans-serif">
+    - ...
+  </text>
+
+  <!-- Fixed Visualization Area -->
+  <rect x="480" y="120" width="470" height="460" fill="#fff" stroke="#ccc" stroke-width="1"/>
+  <text x="490" y="150" fill="#333" font-size="14" font-family="sans-serif">
+    Fixed D3 Visualization (Line Chart)
+  </text>
+  <line x1="490" y1="400" x2="920" y2="180" stroke="#99c" stroke-width="2"/>
+  <circle cx="490" cy="400" r="4" fill="#ff6347"/>
+  <circle cx="600" cy="340" r="4" fill="#ff6347"/>
+  <circle cx="720" cy="280" r="4" fill="#ff6347"/>
+  <circle cx="820" cy="240" r="4" fill="#ff6347"/>
+
+  <!-- Footer Section -->
+  <rect x="50" y="600" width="900" height="40" fill="#e0e0ff" rx="5"/>
+  <text x="70" y="625" fill="#333" font-size="14" font-family="sans-serif">
+    Footer / References
+  </text>
+</svg>

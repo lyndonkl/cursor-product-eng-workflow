@@ -1,0 +1,84 @@
+{
+  "name": "linkedin_interactive",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_NO_WARNINGS=1 next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prepare": "husky install",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "d3": "^7.8.5",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-scrollama": "^2.3.3",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-links": "^8.5.0",
+    "@storybook/addon-onboarding": "^8.5.0",
+    "@storybook/blocks": "^8.5.0",
+    "@storybook/nextjs": "^8.5.0",
+    "@storybook/react": "^8.5.0",
+    "@storybook/test": "^8.5.0",
+    "@storybook/testing-library": "^0.2.1",
+    "@storybook/types": "^8.5.0",
+    "@testing-library/jest-dom": "^6.3.0",
+    "@testing-library/react": "^14.1.2",
+    "@types/d3": "^7.4.3",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "eslint-plugin-storybook": "^0.11.2",
+    "husky": "^8.0.3",
+    "jsdom": "^26.0.0",
+    "lint-staged": "^15.2.0",
+    "msw": "^2.7.0",
+    "msw-storybook-addon": "^2.0.4",
+    "postcss": "^8",
+    "prettier": "^3.2.4",
+    "storybook": "^8.5.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5",
+    "vitest": "^1.2.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

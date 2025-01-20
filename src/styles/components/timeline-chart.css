@@ -1,0 +1,165 @@
+.timeline-chart {
+  background-color: var(--background);
+  border-radius: var(--radius);
+}
+
+.timeline-chart .grid line {
+  stroke: var(--muted);
+  stroke-opacity: 0.1;
+  shape-rendering: crispEdges;
+}
+
+.timeline-chart .grid path {
+  stroke-width: 0;
+}
+
+.timeline-chart .x-axis,
+.timeline-chart .y-axis {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.timeline-chart .x-axis path,
+.timeline-chart .y-axis path {
+  stroke: var(--border);
+}
+
+.timeline-chart .x-axis line,
+.timeline-chart .y-axis line {
+  stroke: var(--border);
+}
+
+.timeline-chart .data-point {
+  cursor: pointer;
+  transition: r 0.2s ease;
+}
+
+.timeline-chart .data-point:hover {
+  r: 6;
+}
+
+.timeline-chart .gdp-line {
+  pointer-events: none;
+}
+
+.timeline-chart .confidence-area {
+  pointer-events: none;
+}
+
+/* Historical data styles */
+.timeline-chart .historical.confidence-area {
+  fill: var(--primary);
+  fill-opacity: 0.1;
+}
+
+.timeline-chart .historical.gdp-line {
+  stroke: var(--primary);
+  stroke-width: 2;
+}
+
+.timeline-chart .historical.data-point {
+  fill: var(--primary);
+  stroke: var(--background);
+  stroke-width: 2;
+}
+
+/* Projected data styles */
+.timeline-chart .projected.confidence-area {
+  fill: var(--warning);
+  fill-opacity: 0.1;
+}
+
+.timeline-chart .projected.gdp-line {
+  stroke: var(--warning);
+  stroke-width: 2;
+  stroke-dasharray: 4,4;
+}
+
+.timeline-chart .projected.data-point {
+  fill: var(--warning);
+  stroke: var(--background);
+  stroke-width: 2;
+}
+
+/* Period styles */
+.timeline-chart .period-background {
+  transition: opacity 0.3s ease;
+}
+
+.timeline-chart .period-background:hover,
+.timeline-chart .period-background.active {
+  opacity: 0.15 !important;
+}
+
+.timeline-chart .period-boundary {
+  pointer-events: none;
+}
+
+.timeline-chart .period-label {
+  font-weight: 500;
+  transition: fill 0.2s ease;
+}
+
+.timeline-chart .period-label:hover {
+  fill: var(--foreground);
+  cursor: pointer;
+}
+
+/* Economic indicators */
+.timeline-chart .economic-indicators {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.timeline-chart .period-group:hover .economic-indicators {
+  opacity: 1;
+}
+
+.timeline-chart .industry-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeline-chart .growth-rate {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  letter-spacing: -0.05em;
+}
+
+/* Event styles */
+.timeline-chart .event-line {
+  pointer-events: none;
+}
+
+.timeline-chart .event-marker {
+  cursor: pointer;
+  transition: r 0.2s ease, opacity 0.2s ease;
+}
+
+.timeline-chart .event-marker:hover {
+  r: 8;
+  opacity: 0.8;
+}
+
+.timeline-chart .event-marker.technological {
+  filter: brightness(1.1);
+}
+
+.timeline-chart .event-marker.economic {
+  filter: brightness(0.9);
+}
+
+.timeline-chart .event-marker.social {
+  filter: saturate(0.8);
+}
+
+.timeline-chart .event-marker.political {
+  filter: saturate(1.2);
+}
+
+.timeline-chart .event-label {
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s ease;
+} 
