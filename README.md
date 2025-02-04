@@ -1,4 +1,4 @@
-# LinkedIn Interactive GDP Timeline
+# Interactive GDP Timeline
 
 An interactive visualization of global GDP growth from 1700 to 2050, featuring historical periods, technological milestones, and future projections.
 
